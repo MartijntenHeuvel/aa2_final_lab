@@ -2,17 +2,17 @@
 # tasks file for provision
 name: Create Instance
   openstack.cloud.server:
-    cloud: "{{ guid }}-project"
-    name: "{{ instance.name }}"
-    image: "{{ instance.image }}"
-    key_name: "{{ instance.keypair }}"
-    flavor: "{{ instance.flavor }}"
-    security_groups: "{{ instance.security_group }}"
+    cloud: "{{ GUID }}-project"
+    name: "{{ __name }}"
+    image: "{{ instancevars.image }}"
+    key_name: "{{ instancevars.keypair }}"
+    flavor: "{{ instancevars.flavor }}"
+    security_groups: "{{ instancevars.security_group }}"
     delete_fip: yes
     wait: no
     nics:
-      - net-name: "{{ instance.internal_network }}"
-    meta: "AnsibleGroup={{instance.metadata.AnsibleGroup}},deployment_name={{instance.metadata.deployment_name}}"
-  loop: "{{ instances }}"
+      - net-name: "{{ instancevars.internal_network }}"
+    meta: "AnsibleGroup={{instancevars.metadata.AnsibleGroup}},deployment_name={{instancevars.metadata.deployment_name}}"
+  loop: "{{ groups.all }}"
   loop_control:
-    loop_var: instance
+    loop_var: __name
