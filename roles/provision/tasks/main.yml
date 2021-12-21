@@ -1,18 +1,7 @@
 # tasks file for provision
 ---
 - name: Create Instances
-  openstack.cloud.server:
-    cloud: "{{ GUID }}-project"
-    name: "{{ __name }}"
-    image: "{{ instancevars.image }}"
-    key_name: "{{ instancevars.keypair }}"
-    flavor: "{{ instancevars.flavor }}"
-    security_groups: "{{ instancevars.security_group }}"
-    delete_fip: yes
-    wait: no
-    nics:
-      - net-name: "{{ instancevars.internal_network }}"
-    meta: "AnsibleGroup={{instancevars.metadata.AnsibleGroup}},deployment_name={{instancevars.metadata.deployment_name}}"
+  include_tasks: createosp.yml
   loop: "{{ groups.all }}"
   loop_control:
     loop_var: __name

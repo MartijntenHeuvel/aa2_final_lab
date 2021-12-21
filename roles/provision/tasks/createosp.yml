@@ -1,0 +1,17 @@
+---
+- name: create objects
+  openstack.cloud.server:
+    cloud: "{{ GUID }}-project"
+    name: "{{ __name }}"
+    image: "{{ __ospvar.image }}"
+    key_name: "{{ __ospvar.keypair }}"
+    flavor: "{{ __ospvar.flavor }}"
+    security_groups: "{{ __ospvar.security_group }}"
+    delete_fip: yes
+    wait: no
+    nics:
+      - net-name: "{{ __ospvar.internal_network }}"
+    meta: "AnsibleGroup={{ __ospvar.metadata.AnsibleGroup }},deployment_name={{ __ospvar.metadata.deployment_name }}"
+  loop: "{{ instances }}"
+  loop_control:
+    loop_var: __ospvar
