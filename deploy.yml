@@ -1,0 +1,15 @@
+# this file contains the deploy playbooks.
+#
+---
+- name: Deploy all servers
+  hosts: localhost
+  collections:
+    - openstack.cloud
+  vars_files: 
+  - group_vars/instances.yml
+
+  roles:
+  - role: provision
+    vars_files: 
+    - instances.yml
+

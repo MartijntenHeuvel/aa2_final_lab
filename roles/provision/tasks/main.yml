@@ -2,7 +2,7 @@
 ---
 - name: Create Instances
   collections:
-  - openstack.cloud
+    - openstack.cloud
 
   openstack.cloud.server:
     cloud: "{{ GUID }}-project"
