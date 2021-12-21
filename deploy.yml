@@ -5,11 +5,8 @@
   hosts: localhost
   collections:
     - openstack.cloud
-  vars_files: 
+  vars_files:
   - group_vars/instances.yml
 
   roles:
   - role: provision
-    vars_files: 
-    - instances.yml
-
