@@ -1,4 +1,4 @@
 # site.yml
 #
 ---
-- include: deploy.yml
+- import_playbook: deploy.yml
