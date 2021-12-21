@@ -1,9 +1,6 @@
 # tasks file for provision
 ---
 - name: Create Instances
-  collections:
-    - openstack.cloud
-
   openstack.cloud.server:
     cloud: "{{ GUID }}-project"
     name: "{{ __name }}"
