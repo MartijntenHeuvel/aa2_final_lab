@@ -1,7 +1,7 @@
 # this file contains the deploy playbooks.
 #
 ---
-- name: Deploy all servers
+- name: Create OSP objects
   hosts: localhost
   collections:
     - openstack.cloud
@@ -10,3 +10,35 @@
 
   roles:
   - role: provision
+
+
+- name: Deploy, configure, and populate Postgres
+  hosts: database_servers
+  gather_facts: false
+  become: true
+
+  vars_files:
+  - group_vars/database_servers
+
+  roles:
+  - role: postgres
+
+- name: Deploy, configure, and populate flask repo and virtualenv
+  hosts: app_servers
+
+  vars_files:
+  - group_vars/app_servers.yml
+
+  roles:
+  - role: flask
+
+- name: Deploy haproxy load balancer
+  hosts: load_balancers
+  gather_facts: false
+  become: true
+
+  vars_files:
+  - group_vars/load_balancers.yml
+
+  roles:
+  - role: haproxy
